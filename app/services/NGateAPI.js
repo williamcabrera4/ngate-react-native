@@ -15,5 +15,4 @@ export const getDevices = () => request(`api/devices/`);
 export const getDeviceState = (uuid) => request(`api/devices/${uuid}`);
 
 export const sendDeviceAction = (uuid, parameters) =>
-  httpClient.post(httpUrl(`api/devices/${uuid}/action`), { parameters })
-    .catch((error) => console.error(error));
+  httpClient.post(httpUrl(`api/devices/${uuid}/action`), { parameters });

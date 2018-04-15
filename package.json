@@ -9,7 +9,14 @@
   "dependencies": {
     "lodash": "^4.17.4",
     "react": "16.0.0",
-    "react-native": "0.50.4"
+    "react-native": "0.50.4",
+    "react-native-sortable-listview": "^0.2.8",
+    "react-native-textinput-effects": "^0.4.2",
+    "react-navigation": "^1.5.8",
+    "react-redux": "^5.0.7",
+    "redux": "^3.7.2",
+    "redux-persist": "^5.9.1",
+    "rn-viewpager": "^1.2.9"
   },
   "devDependencies": {
     "babel-jest": "21.2.0",

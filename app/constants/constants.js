@@ -10,6 +10,10 @@ export const colors = {
   white: '#fff',
 };
 
+export const operations = {
+  OPEN_CLOSE: 'openclose',
+};
+
 export const config = {
   deviceUUID: envConfig.deviceUUID,
   NGateHost: envConfig.NGateHost,
