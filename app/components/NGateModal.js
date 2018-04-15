@@ -32,7 +32,7 @@ class NGateModal extends React.PureComponent {
           <View style={styles.backgroundWrapper}/>
           <View style={styles.modalRoot}>
             <View style={styles.modalContainer}>
-              <Text style={styles.title}>Testing {title}</Text>
+              <Text style={styles.title}>{title}</Text>
               <View style={styles.childrenContainer}>
                 {children}
               </View>

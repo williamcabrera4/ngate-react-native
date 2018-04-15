@@ -10,6 +10,7 @@
     "lodash": "^4.17.4",
     "react": "16.0.0",
     "react-native": "0.50.4",
+    "react-native-qrcode": "^0.2.6",
     "react-native-sortable-listview": "^0.2.8",
     "react-native-textinput-effects": "^0.4.2",
     "react-navigation": "^1.5.8",

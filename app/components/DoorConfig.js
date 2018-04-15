@@ -27,10 +27,6 @@ class DoorConfig extends React.PureComponent {
     };
   }
 
-  static navigationOptions = {
-    drawerLabel: 'Agregar Puerta',
-  };
-
   validateInputText() {
     const { doorName, uuid } = this.state;
     if (!doorName.length) {
@@ -74,7 +70,6 @@ class DoorConfig extends React.PureComponent {
   }
 
   render() {
-
     return (
       <View style={styles.container}>
         <StatusBarIOS/>
@@ -147,7 +142,7 @@ styles = StyleSheet.create({
   },
   actionButtonLabel: {
     fontSize: 14,
-  }
+  },
 });
 
 export default DoorConfig;

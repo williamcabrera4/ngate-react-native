@@ -10,18 +10,16 @@ let styles = {};
 
 class DoorViewPager extends React.PureComponent {
 
-  static navigationOptions = {
-    drawerLabel: 'Home',
-  };
-
   componentDidMount() {
     this.props.navigation.navigate('DrawerOpen'); // open drawer
   }
 
   renderDoor(door) {
+    const { navigation } = this.props;
+
     return (
       <View key={door.uuid}>
-        <DoorControl doorName={door.name}/>
+        <DoorControl uuid={door.uuid} doorName={door.name} navigation={navigation}/>
       </View>
     );
   }
@@ -32,7 +30,7 @@ class DoorViewPager extends React.PureComponent {
     if (!doors.length) {
       return (
         <View key={'emptyDoor'}>
-          <EmptyScreen navigation={navigation} />
+          <EmptyScreen navigation={navigation}/>
         </View>
       );
     }
@@ -41,6 +39,7 @@ class DoorViewPager extends React.PureComponent {
   }
 
   render() {
+    console.log('render ' + new Date().toTimeString());
     return (
       <View style={styles.container}>
         <StatusBarIOS/>

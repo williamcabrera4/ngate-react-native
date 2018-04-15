@@ -3,7 +3,8 @@ import DoorViewPager from '../components/DoorViewPager';
 
 function mapStateToProps(state) {
   return {
-    doors: state.doors.doors
+    doors: state.doors.doors,
+    date: state.navigation.date,
   };
 }
 

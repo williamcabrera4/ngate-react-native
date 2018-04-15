@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Text, Animated, Easing } from 'react-native';
+import { StyleSheet, TouchableHighlight, Text, Animated, Easing, Image } from 'react-native';
 import Button from './Button';
 import ScreenWrapper from './ScreenWrapper';
 import { sendDeviceAction } from '../services/NGateAPI';
 import { colors, operations } from '../constants/constants';
 import cogImage from '../images/cog.png';
+import shareButtonImage from '../images/shareButton.png';
 
 
 let styles = {};
@@ -16,11 +17,19 @@ class DoorControl extends React.PureComponent {
     this.state = {
       spinValue: new Animated.Value(0),
     };
+
+    this.openDoorAction = this.openDoorAction.bind(this);
+    this.openShareScreen = this.openShareScreen.bind(this);
+  }
+
+  openShareScreen() {
+    const { uuid } = this.props;
+    this.props.navigation.navigate('ShareScreen', { uuid });
   }
 
   openDoorAction() {
-    const { deviceUUID } = this.props;
-    sendDeviceAction(deviceUUID, { status: operations.OPEN_CLOSE });
+    const { uuid } = this.props;
+    sendDeviceAction(uuid, { status: operations.OPEN_CLOSE });
     Animated.timing(
       this.state.spinValue,
       {
@@ -49,10 +58,19 @@ class DoorControl extends React.PureComponent {
           source={cogImage}
         />
         <Button
-          onPress={() => this.openDoorAction()}
+          onPress={this.openDoorAction}
           style={styles.actionButton}
           label="Activar"
         />
+        <TouchableHighlight
+          style={styles.shareButton}
+          onPress={this.openShareScreen}
+        >
+          <Image
+            style={styles.shareButtonImage}
+            source={shareButtonImage}
+          />
+        </TouchableHighlight>
       </ScreenWrapper>
     );
   }
@@ -71,7 +89,16 @@ styles = StyleSheet.create({
     width: '50%',
   },
   actionButton: {
-    marginTop: '40%',
+    marginTop: '25%',
+  },
+  shareButton: {
+    alignSelf: 'flex-end',
+    marginRight: 50,
+    marginTop: 30,
+  },
+  shareButtonImage: {
+    height: 50,
+    width: 50,
   }
 });
 
