@@ -10,10 +10,6 @@ let styles = {};
 
 class DoorViewPager extends React.PureComponent {
 
-  componentDidMount() {
-    this.props.navigation.navigate('DrawerOpen'); // open drawer
-  }
-
   renderDoor(door) {
     const { navigation } = this.props;
 

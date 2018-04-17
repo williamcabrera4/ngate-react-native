@@ -72,7 +72,7 @@ class DoorConfig extends React.PureComponent {
   render() {
     return (
       <View style={styles.container}>
-        <StatusBarIOS/>
+        <StatusBarIOS backButton={true}/>
         <ScreenWrapper>
           <View style={styles.separator}/>
           <Hoshi

@@ -35,7 +35,7 @@ class ShareScreen extends React.PureComponent {
     const uuid = fp.get('props.navigation.state.params.uuid')(this) || '';
     return (
       <View style={styles.container}>
-        <StatusBarIOS/>
+        <StatusBarIOS backButton={true}/>
         <ScreenWrapper>
           <Button
             style={styles.buttonStyle}

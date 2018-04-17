@@ -1,25 +1,38 @@
 import React from 'react';
-import { StyleSheet, View, StatusBar, Text, Image } from 'react-native';
+import { StyleSheet, View, StatusBar, Text, Image, TouchableHighlight } from 'react-native';
 import { colors } from '../constants/constants';
-import backIcon from '../images/back.png';
-import menuIcon from '../images/menu.png';
+import { withNavigation } from 'react-navigation';
 
 let styles = {};
 
-const StatusBarIOS = ({ isBack }) => (
-  <View>
-    <StatusBar barStyle="light-content"/>
-    <View style={styles.statusBar}/>
-    <View style={styles.appBar}>
-      <Image
-        style={styles.backIcon}
-        source={menuIcon}
-      />
-      <Text style={styles.appBarTitle}>NGate</Text>
-      <View />
-    </View>
-  </View>
-);
+class StatusBarIOS extends React.PureComponent {
+
+  render() {
+    const { backButton, navigation } = this.props;
+    const image = backButton ? require('../images/back.png') : require('../images/menu.png');
+    const onPress = backButton ? () => navigation.goBack() : () => navigation.navigate('DrawerOpen');
+    return (
+      <View>
+        <StatusBar barStyle="light-content"/>
+        <View style={styles.statusBar}/>
+        <View style={styles.appBar}>
+          <TouchableHighlight
+            underlayColor={colors.colorPrimary}
+            onPress={onPress}
+          >
+            <Image
+              style={styles.backIcon}
+              source={image}
+            />
+          </TouchableHighlight>
+          <Text style={styles.appBarTitle}>NGate</Text>
+          <View/>
+        </View>
+      </View>
+    );
+  }
+}
+
 
 styles = StyleSheet.create({
   statusBar: {
@@ -45,4 +58,4 @@ styles = StyleSheet.create({
   }
 });
 
-export default StatusBarIOS;
+export default withNavigation(StatusBarIOS);
