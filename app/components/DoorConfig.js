@@ -1,8 +1,9 @@
 import fp from 'lodash/fp';
 import React from 'react';
-import { StyleSheet, View, Text, TextInput, Alert } from 'react-native';
+import { StyleSheet, View, Alert } from 'react-native';
 import { Hoshi } from 'react-native-textinput-effects';
 import StatusBarIOS from './StatusBarIOS';
+import ActivityModal from './ActivityModal';
 import ScreenWrapper from './ScreenWrapper';
 import Button from './Button';
 import { colors } from '../constants/constants';
@@ -17,14 +18,22 @@ class DoorConfig extends React.PureComponent {
 
     this.addDoor = this.addDoor.bind(this);
     this.cancelAction = this.cancelAction.bind(this);
-
-    // Read default value
-    const door = fp.get('props.navigation.state.params')(this) || {};
+    this.scanQrCode = this.scanQrCode.bind(this);
 
     this.state = {
+      doorName: '',
+      uuid: '',
+      showActivityModal: false,
+    };
+  }
+
+  componentDidMount() {
+    // Read default value
+    const door = fp.get('props.navigation.state.params')(this) || {};
+    this.setState({
       doorName: door.name || '',
       uuid: door.uuid || '',
-    };
+    });
   }
 
   validateInputText() {
@@ -49,7 +58,8 @@ class DoorConfig extends React.PureComponent {
       return;
     }
 
-    return getDeviceState(uuid)
+    this.setState({ showActivityModal: true });
+    getDeviceState(uuid)
       .then((response) => {
         const door = {
           name: doorName,
@@ -58,10 +68,12 @@ class DoorConfig extends React.PureComponent {
           deviceServerId: response.id,
         };
         saveDoor(door);
-        navigation.navigate('DoorViewPager');
+        this.setState({ showActivityModal: false }, () => navigation.navigate('DoorViewPager'));
       })
       .catch((error) => {
-        Alert.alert('Error', 'UUID no se ha podido encontrar en el servidor');
+        this.setState({ showActivityModal: false }, () => {
+          setTimeout(() => Alert.alert('Error', 'UUID no se ha podido encontrar en el servidor'), 1200);
+        });
       });
   }
 
@@ -69,10 +81,18 @@ class DoorConfig extends React.PureComponent {
     this.props.navigation.navigate('DoorViewPager');
   }
 
+  scanQrCode() {
+    const { doorName } = this.state;
+    this.props.navigation.navigate('ScanQrScreen', { name: doorName });
+  }
+
   render() {
+    const { showActivityModal } = this.state;
+
     return (
       <View style={styles.container}>
         <StatusBarIOS backButton={true}/>
+        <ActivityModal modalVisible={showActivityModal} title="Guardando"/>
         <ScreenWrapper>
           <View style={styles.separator}/>
           <Hoshi
@@ -89,6 +109,13 @@ class DoorConfig extends React.PureComponent {
             borderColor={colors.colorPrimary}
             onChangeText={(uuid) => this.setState({ uuid })}
             value={this.state.uuid}
+          />
+          <View style={styles.separator}/>
+          <Button
+            onPress={this.scanQrCode}
+            style={styles.scanQrButton}
+            labelStyle={styles.actionButtonLabel}
+            label="Escanear código QR"
           />
           <View style={styles.fill}/>
           <View style={styles.actionButtonContainer} removeClippedSubviews={true}>
@@ -136,12 +163,16 @@ styles = StyleSheet.create({
     flexDirection: 'row',
   },
   actionButton: {
-    height: 40,
+    height: 50,
     flex: 1,
     margin: 10,
   },
   actionButtonLabel: {
-    fontSize: 14,
+    fontSize: 15,
+  },
+  scanQrButton: {
+    height: 50,
+    width: '90%',
   },
 });
 

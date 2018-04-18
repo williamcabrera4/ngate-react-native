@@ -3,6 +3,8 @@ import DoorViewPager from '../containers/DoorViewPager';
 import DoorConfig from '../containers/DoorConfig';
 import CustomDrawerContent from '../containers/CustomDrawerContent';
 import ShareScreen from './ShareScreen';
+import ScanQrScreen from './ScanQrScreen';
+import Proxy from './Proxy';
 
 const NGateNavigation = DrawerNavigator({
     DoorConfig: {
@@ -13,6 +15,12 @@ const NGateNavigation = DrawerNavigator({
     },
     ShareScreen: {
       screen: ShareScreen,
+    },
+    ScanQrScreen: {
+      screen: ScanQrScreen,
+    },
+    Proxy: {
+      screen: Proxy,
     },
   },
   {

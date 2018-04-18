@@ -35,7 +35,6 @@ class DoorViewPager extends React.PureComponent {
   }
 
   render() {
-    console.log('render ' + new Date().toTimeString());
     return (
       <View style={styles.container}>
         <StatusBarIOS/>

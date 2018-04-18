@@ -9,7 +9,8 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
-  const saveDoorCallback = fp.isEmpty(ownProps.navigation.state.params) ? saveDoor : editDoor;
+  const editMode = fp.get('navigation.state.params.editMode')(ownProps) || false;
+  const saveDoorCallback = editMode ? editDoor : saveDoor;
   return bindActionCreators({
       saveDoor: saveDoorCallback,
     },

@@ -20,13 +20,15 @@ class StatusBarIOS extends React.PureComponent {
             underlayColor={colors.colorPrimary}
             onPress={onPress}
           >
-            <Image
-              style={styles.backIcon}
-              source={image}
-            />
+            <View style={styles.backIconContainer}>
+              <Image
+                style={styles.backIcon}
+                source={image}
+              />
+            </View>
           </TouchableHighlight>
           <Text style={styles.appBarTitle}>NGate</Text>
-          <View/>
+          <View style={styles.filler}/>
         </View>
       </View>
     );
@@ -47,7 +49,6 @@ styles = StyleSheet.create({
     height: 44,
   },
   appBarTitle: {
-    marginRight: 40,
     fontSize: 22,
     color: colors.white,
   },
@@ -55,6 +56,15 @@ styles = StyleSheet.create({
     height: 20,
     width: 20,
     marginLeft: 20,
+  },
+  backIconContainer: {
+    flex: 1,
+    width: 70,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  },
+  filler: {
+    width: 70,
   }
 });
 

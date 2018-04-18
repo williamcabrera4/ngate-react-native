@@ -11,7 +11,6 @@ import editIcon from '../images/edit.png';
 import removeIcon from '../images/remove.png';
 import shareIcon from '../images/share.png';
 import ModalDoorRow from './ModalDoorRow';
-import { updateScreen } from '../actions/navigationActionCreators';
 
 class CustomDrawerContent extends React.PureComponent {
 
@@ -61,22 +60,23 @@ class CustomDrawerContent extends React.PureComponent {
   }
 
   editDoor(door) {
-    this.props.navigation.navigate('DoorConfig', door);
+    const navigationParameters = Object.assign({}, door, { editMode: true });
+    this.props.navigation.navigate('DoorConfig', navigationParameters);
     this.onModalCancelOption();
   }
 
   deleteDoor(door) {
     const { deleteDoor } = this.props;
-    deleteDoor(door.uuid);
-    updateScreen();
     this.onModalCancelOption();
+    deleteDoor(door.uuid);
+    this.props.navigation.navigate('Proxy');
   }
 
   reorderDoor() {
-    const { doors, reorderDoors, updateScreen } = this.props;
-    reorderDoors(doors);
-    updateScreen();
+    const { doors, reorderDoors } = this.props;
     this.onModalCancelOption();
+    reorderDoors(doors);
+    this.props.navigation.navigate('Proxy');
   }
 
   shareApp() {
@@ -120,6 +120,7 @@ class CustomDrawerContent extends React.PureComponent {
   }
 
   renderDoorControlSection() {
+    const emptyDoorNavigation = { name: '', uuid: '', editMode: false };
     const reorderDoorParameter = {
       title: 'Ordenar puertas',
       sortMode: true,
@@ -139,7 +140,7 @@ class CustomDrawerContent extends React.PureComponent {
     return (
       <View style={styles.doorControlContainer}>
         <Text style={styles.menuTitle}>Control de Puertas</Text>
-        {this.renderItem(addIcon, 'Agregar Puerta', () => this.props.navigation.navigate('DoorConfig', null))}
+        {this.renderItem(addIcon, 'Agregar Puerta', () => this.props.navigation.navigate('DoorConfig', emptyDoorNavigation))}
         {this.renderItem(reorderIcon, 'Ordenar Puertas', () => this.showModal(reorderDoorParameter))}
         {this.renderItem(editIcon, 'Modificar Puerta', () => this.showModal(editDoorParameter))}
         {this.renderItem(removeIcon, 'Eliminar Puerta', () => this.showModal(deleteDoorParameter))}
