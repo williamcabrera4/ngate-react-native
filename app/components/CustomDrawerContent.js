@@ -82,7 +82,7 @@ class CustomDrawerContent extends React.PureComponent {
   shareApp() {
     Share.share({
       message: 'Control remoto de tu portón eléctrico desde tu celular con el NGate',
-      url: 'http://www.google.com',
+      url: 'https://itunes.apple.com/us/app/ngate/id1373869399?ls=1&mt=8',
       title: 'NGate',
     });
   }
