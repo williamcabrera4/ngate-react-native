@@ -38,13 +38,12 @@ class ScanQrScreen extends React.PureComponent {
   }
 
   render() {
-    const data = fp.get('props.navigation.state.params')(this) || '';
     return (
       <QRCodeScanner
         onRead={this.onRead}
         topContent={
           <Text style={styles.centerText}>
-            Escanear código QR {JSON.stringify(data)}
+            Escanear código QR
           </Text>
         }
         bottomContent={

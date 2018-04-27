@@ -61,6 +61,13 @@ class DoorConfig extends React.PureComponent {
     this.setState({ showActivityModal: true });
     getDeviceState(uuid)
       .then((response) => {
+        if (response.error) {
+          this.setState({ showActivityModal: false }, () => {
+            setTimeout(() => Alert.alert('Error', response.error), 1200);
+          });
+          return;
+        }
+
         const door = {
           name: doorName,
           uuid,

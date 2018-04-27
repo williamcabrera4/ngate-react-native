@@ -1,7 +1,7 @@
 import fp from 'lodash/fp';
 import React from 'react';
 import { StyleSheet, View, Text, Clipboard, Share } from 'react-native';
-import QRCode from 'react-native-qrcode';
+import QRCode from 'react-native-qrcode-svg';
 import StatusBarIOS from './StatusBarIOS';
 import ScreenWrapper from './ScreenWrapper';
 import Button from './Button';
@@ -51,13 +51,12 @@ class ShareScreen extends React.PureComponent {
           />
           <Text style={styles.text}>Código QR</Text>
           <View
-            style={styles.qrCode}
+            style={styles.qrCodeContainer}
           >
             <QRCode
+              size={220}
               value={uuid}
-              size={250}
-              bgColor='#000'
-              fgColor='#fff'/>
+            />
           </View>
         </ScreenWrapper>
       </View>
@@ -85,7 +84,7 @@ styles = StyleSheet.create({
     fontSize: 17,
     color: '#666'
   },
-  qrCode: {
+  qrCodeContainer: {
     marginTop: 20,
   },
 });
